@@ -1,11 +1,20 @@
 use ratatui::{buffer::Buffer, layout::{Constraint, Layout, Rect, Spacing}, widgets::{Block, Paragraph, Widget}};
 
-pub struct Grid {
-    pub(crate) cols: usize,
-    pub(crate) rows: usize,
+use crate::operations::Expression;
+
+pub struct Cell{
+    pub content: Expression,
 }
 
-impl Widget for Grid {
+pub struct Grid
+     {
+    pub(crate) cols: usize,
+    pub(crate) rows: usize,
+    pub cells: Vec<Cell>
+}
+
+impl Widget for Grid
+     {
     fn render(self, area: Rect, buf: &mut Buffer) {
         let col_constraints = (0..self.cols).map(|_| Constraint::Length(9));
         let row_constraints = (0..self.rows).map(|_| Constraint::Length(3));
